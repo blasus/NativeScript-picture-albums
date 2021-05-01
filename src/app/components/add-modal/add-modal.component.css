@@ -1,0 +1,9 @@
+.modal {
+    width: 250;
+    padding: 10;
+}
+
+.form-control-container .label {
+    margin: 5 10;
+    font-size: 14;
+}

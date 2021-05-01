@@ -1,4 +1,12 @@
-<StackLayout class="page">
-    <Label class="my-label" style="text-align: center;" text="Modal view with ActionBar" textWrap="true"></Label>
-    <Button text="CLOSE MODAL" (tap)="onClose()"></Button>
+<StackLayout [formGroup]="form" class="modal">
+    <StackLayout class="form-control-container">
+        <Label text="Name" class="label" textWrap="true"></Label>
+        <TextField formControlName="name" class="nt-input"></TextField>
+    </StackLayout>
+    <StackLayout class="form-control-container">
+        <Label text="Description" class="label" textWrap="true"></Label>
+        <TextField formControlName="description" class="nt-input"></TextField>
+    </StackLayout>
+    <Button text="Submit" (tap)="onSubmit()" class="btn btn-primary"></Button>
+    <Button text="Cancel" (tap)="onCancel()" class="btn btn-outline"></Button>
 </StackLayout>

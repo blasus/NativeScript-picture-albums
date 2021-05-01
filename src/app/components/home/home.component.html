@@ -4,7 +4,7 @@
         <!-- Search bar -->
         <GridLayout col="0" columns="*, auto" rows="auto" class="search-container">
             <TextField #search col="0" hint="Search for images" returnKeyType="search" class="search-bar" (textChange)="onTextChange($event)"></TextField>
-            <Label col="1" text="&#xf002;" class="fas" [visibility]="showClear ? 'visible' : 'collapsed'" (tap)="onClearSearch(search)"></Label>
+            <Button col="1" text="X" class="action-button -circle" [visibility]="showClear ? 'visible' : 'collapsed'" (tap)="onClearSearch(search)"></Button>
         </GridLayout>
         <!-- Search button -->
         <Button col="1" text="S" class="action-button -circle"></Button>
@@ -19,7 +19,8 @@
                 <ng-template let-item="item">
                     <!-- each element displays the default image of the album, name and description -->
                     <GridLayout rows="auto, auto" columns="*, 5*" [nsRouterLink]="['/item', item.id]" class="list-group-item">
-                        <Image row="0" rowSpan="2" col="0" src="font://&#xf07b;" stretch="none" class="fas fa-folder"></Image>
+                        <!-- <Image row="0" rowSpan="2" col="0" src="font://&#xf07b;" stretch="none" class="fas fa-folder"></Image> -->
+                        <Label row="0" rowSpan="2" text="F" class="h1"></Label>
                         <Label row="0" col="1" [text]="item.name" class="h2"></Label>
                         <Label row="1" col="1" [text]="item.description" class="h4"></Label>
                     </GridLayout>

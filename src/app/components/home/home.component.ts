@@ -62,8 +62,10 @@ export class HomeComponent implements OnInit {
 
         // load the modal view to add a new album
         this.modalService.showModal(AddModalComponent, options)
-            .then((result: Album) => {
-                console.log(result);
+            .then((res: Album) => {
+                if (res) {
+                    this.albumService.addAlbum(res);
+                }
             });
     }
 }

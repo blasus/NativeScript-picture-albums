@@ -1,11 +1,12 @@
 import { NgModule, NO_ERRORS_SCHEMA } from "@angular/core";
-import { NativeScriptModule } from "@nativescript/angular";
+import { NativeScriptFormsModule, NativeScriptModule } from "@nativescript/angular";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./components/home/home.component";
 import { ItemDetailComponent } from "./components/album/item-detail.component";
 import { AddModalComponent } from "./components/add-modal/add-modal.component";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
 
 @NgModule({
@@ -14,6 +15,9 @@ import { AddModalComponent } from "./components/add-modal/add-modal.component";
     ],
     imports: [
         NativeScriptModule,
+        FormsModule,
+        ReactiveFormsModule,
+        NativeScriptFormsModule,
         AppRoutingModule
     ],
     declarations: [
