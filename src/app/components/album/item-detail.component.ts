@@ -18,6 +18,6 @@ export class ItemDetailComponent implements OnInit {
 
     ngOnInit(): void {
         const id = +this.route.snapshot.params.id;
-        this.item = this.itemService.getItem(id);
+        this.item = this.itemService.getAlbum(id);
     }
 }

@@ -13,7 +13,7 @@
             "sourceMaps": true,
             "watch": true,
             "tnsArgs": [
-                "--device Pixel_3a_API_30_x86"
+                "--device Pixel_2_API_29"
             ]
         },
         {

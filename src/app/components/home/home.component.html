@@ -1,13 +1,30 @@
-<GridLayout columns="*, auto" class="search-container">
-    <TextField col="0"></TextField>
-    <Button col="1" text="+" (tap)="onTap($event)"></Button>
-</GridLayout>
-<GridLayout>
-    <ListView [items]="albums">
-        <ng-template let-item="item">
-            <StackLayout>
-                <Label [nsRouterLink]="['/item', item.id]" [text]="item.name"></Label>
-            </StackLayout>
-        </ng-template>
-    </ListView>
-</GridLayout>
+<StackLayout>
+    <!-- Header -->
+    <GridLayout columns="*, auto, auto" rows="auto" class="header">
+        <!-- Search bar -->
+        <GridLayout col="0" columns="*, auto" rows="auto" class="search-container">
+            <TextField #search col="0" hint="Search for images" returnKeyType="search" class="search-bar" (textChange)="onTextChange($event)"></TextField>
+            <Label col="1" text="&#xf002;" class="fas" [visibility]="showClear ? 'visible' : 'collapsed'" (tap)="onClearSearch(search)"></Label>
+        </GridLayout>
+        <!-- Search button -->
+        <Button col="1" text="S" class="action-button -circle"></Button>
+        <!-- Add new album button -->
+        <Button col="2" text="A" class="action-button -circle" (tap)="onAddTap($event)"></Button>
+    </GridLayout>
+    <!-- Body -->
+    <StackLayout class="body">
+        <GridLayout>
+            <!-- List of albums -->
+            <ListView [items]="albums">
+                <ng-template let-item="item">
+                    <!-- each element displays the default image of the album, name and description -->
+                    <GridLayout rows="auto, auto" columns="*, 5*" [nsRouterLink]="['/item', item.id]" class="list-group-item">
+                        <Image row="0" rowSpan="2" col="0" src="font://&#xf07b;" stretch="none" class="fas fa-folder"></Image>
+                        <Label row="0" col="1" [text]="item.name" class="h2"></Label>
+                        <Label row="1" col="1" [text]="item.description" class="h4"></Label>
+                    </GridLayout>
+                </ng-template>
+            </ListView>
+        </GridLayout>
+    </StackLayout>
+</StackLayout>

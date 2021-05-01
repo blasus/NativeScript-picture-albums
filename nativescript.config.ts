@@ -8,10 +8,10 @@ export default {
     codeCache: true
   },
   android: {
-    discardUncaughtJsExceptions: true,
+    discardUncaughtJsExceptions: false,
     v8Flags: '--nolazy --expose_gc',
     markingMode: 'none',
     suppressCallJSMethodExceptions: false,
-    codeCache: true
+    codeCache: false
   }
 } as NativeScriptConfig;

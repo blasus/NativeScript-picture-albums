@@ -1,4 +1,21 @@
+.header, .body {
+    margin: 10;
+}
+
 .search-container {
-    height: 40;
-    margin-bottom: 10;
+    margin: 20 0;
+    padding: 0 5;
+    border-width: 1;
+    border-color: gainsboro;
+    border-radius: 10;
+}
+
+.search-bar {
+    height: 30;
+    border-bottom-width: 0;
+}
+
+.action-button {
+    width: 30;
+    height: 30;
 }

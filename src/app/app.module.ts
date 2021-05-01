@@ -5,6 +5,8 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./components/home/home.component";
 import { ItemDetailComponent } from "./components/album/item-detail.component";
+import { AddModalComponent } from "./components/add-modal/add-modal.component";
+
 
 @NgModule({
     bootstrap: [
@@ -17,7 +19,8 @@ import { ItemDetailComponent } from "./components/album/item-detail.component";
     declarations: [
         AppComponent,
         HomeComponent,
-        ItemDetailComponent
+        ItemDetailComponent,
+        AddModalComponent
     ],
     providers: [],
     schemas: [
