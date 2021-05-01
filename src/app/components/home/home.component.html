@@ -1,6 +1,9 @@
-
+<GridLayout columns="*, auto" class="search-container">
+    <TextField col="0"></TextField>
+    <Button col="1" text="+" (tap)="onTap($event)"></Button>
+</GridLayout>
 <GridLayout>
-    <ListView [items]="items">
+    <ListView [items]="albums">
         <ng-template let-item="item">
             <StackLayout>
                 <Label [nsRouterLink]="['/item', item.id]" [text]="item.name"></Label>

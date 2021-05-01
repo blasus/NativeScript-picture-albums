@@ -1,18 +1,18 @@
 import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
-import { Item } from "../../model/item";
-import { ItemService } from "../../services/item.service";
+import { Album } from "../../model/album";
+import { AlbumService } from "../../services/album.service";
 
 @Component({
     selector: "ns-details",
     templateUrl: "./item-detail.component.html",
 })
 export class ItemDetailComponent implements OnInit {
-    item: Item;
+    item: Album;
 
     constructor(
-        private itemService: ItemService,
+        private itemService: AlbumService,
         private route: ActivatedRoute
     ) {}
 

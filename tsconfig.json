@@ -15,17 +15,25 @@
       "paths": {
           "~/*": [
               "src/*"
+          ],
+          "*": [
+            "./*",
+            "./node_modules/*",
+            "./node_modules/@nativescript-core/*"
           ]
       }
   },
+  "angularCompilerOptions": {
+    "enableIvy": true
+  },
   "include": [
+    "references.d.ts",
     "src/tests/**/*.ts",
     "src/**/*.ios.ts",
     "src/**/*.android.ts"
   ],
   "files": [
-    "./references.d.ts",
-    "./src/main.ts"
+    "src/main.ts"
   ],
   "exclude": [
       "node_modules",
