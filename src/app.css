@@ -19,6 +19,15 @@
     font-weight: 900;
 }
 
+.button-container {
+    padding: 0 10
+}
+
+Button.btn {
+    width: 70;
+    height: 50;
+}
+
 Button.btn.btn-primary {
     background-color: deepskyblue;
     color: white;

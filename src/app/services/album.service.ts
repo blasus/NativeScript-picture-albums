@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable, of } from "rxjs";
 
 import { Album } from "../model/album";
 
@@ -21,8 +22,8 @@ export class AlbumService {
      * Gets the available albums.
      * @returns the albums
      */
-    getAlbums(): Array<Album> {
-        return this.albums;
+    getAlbums(): Observable<Album[]> {
+        return of(this.albums);
     }
 
     /**
@@ -30,8 +31,8 @@ export class AlbumService {
      * @param {number} id 
      * @returns the album with specified id, if available.
      */
-    getAlbum(id: number): Album {
-        return this.albums.filter((item) => item.id === id)[0];
+    getAlbum(id: number): Observable<Album> {
+        return of(this.albums.filter((item) => item.id === id)[0]);
     }
 
     /**
@@ -39,7 +40,7 @@ export class AlbumService {
      * @param album 
      * @returns the added album
      */
-    addAlbum(album: Album): Album {
+    addAlbum(album: Album): Observable<Album> {
         let addedAlbum: Album;
         if (album) {
             addedAlbum = { ...album, id: this.candidateId };
@@ -47,6 +48,6 @@ export class AlbumService {
             this.candidateId++;
         }
 
-        return addedAlbum;
+        return of(addedAlbum);
     }
 }

@@ -1,12 +1,17 @@
 <StackLayout [formGroup]="form" class="modal">
+    <!-- form control for name -->
     <StackLayout class="form-control-container">
         <Label text="Name" class="label" textWrap="true"></Label>
         <TextField formControlName="name" class="nt-input"></TextField>
     </StackLayout>
+    <!-- form control for description -->
     <StackLayout class="form-control-container">
         <Label text="Description" class="label" textWrap="true"></Label>
         <TextField formControlName="description" class="nt-input"></TextField>
     </StackLayout>
-    <Button text="Submit" (tap)="onSubmit()" class="btn btn-primary"></Button>
-    <Button text="Cancel" (tap)="onCancel()" class="btn btn-outline"></Button>
+    <!-- button container -->
+    <FlexboxLayout justifyContent="center" class="button-container">
+        <Button text="Submit" (tap)="onSubmit()" class="btn btn-primary"></Button>
+        <Button text="Cancel" (tap)="onCancel()" class="btn btn-outline"></Button>
+    </FlexboxLayout>
 </StackLayout>

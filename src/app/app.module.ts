@@ -4,7 +4,7 @@ import { NativeScriptFormsModule, NativeScriptModule } from "@nativescript/angul
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { HomeComponent } from "./components/home/home.component";
-import { ItemDetailComponent } from "./components/album/item-detail.component";
+import { AlbumDetailComponent } from "./components/album/album-detail.component";
 import { AddModalComponent } from "./components/add-modal/add-modal.component";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 
@@ -23,7 +23,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
     declarations: [
         AppComponent,
         HomeComponent,
-        ItemDetailComponent,
+        AlbumDetailComponent,
         AddModalComponent
     ],
     providers: [],

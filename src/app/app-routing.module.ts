@@ -3,12 +3,12 @@ import { Routes } from "@angular/router";
 import { NativeScriptRouterModule } from "@nativescript/angular";
 
 import { HomeComponent } from "./components/home/home.component";
-import { ItemDetailComponent } from "./components/album/item-detail.component";
+import { AlbumDetailComponent } from "./components/album/album-detail.component";
 
 const routes: Routes = [
     { path: "", redirectTo: "/home", pathMatch: "full" },
     { path: "home", component: HomeComponent },
-    { path: "album/:id", component: ItemDetailComponent },
+    { path: "album/:id", component: AlbumDetailComponent },
 ];
 
 @NgModule({
