@@ -67,4 +67,21 @@ export class AlbumService {
 
         return of(album);
     }
+
+    /**
+     * Delete the passed image from the album with id albumId.
+     * @param image 
+     * @param albumId
+     * @returns the updated album 
+     */
+    deleteImageFromAlbum(image: Picture, albumId: number): Observable<Album> {
+        const album = this.albums.filter((item) => item.id === albumId)[0];
+
+        if (album) {
+            // check if the image exists then remove it
+            album.images = album.images.filter(img => img.id !== image.id);
+        }
+
+        return of(album);
+    }
 }

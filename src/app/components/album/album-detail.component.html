@@ -8,12 +8,21 @@
     <Label *ngIf="dataItems.length === 0 && !isBusy" class="h2 empty-folder" text="This folder is empty"></Label>
     <!-- Use of RadListView from nativescript-ui-listview plugin to render virtualised elements in a grid view.
         Again, this could be a generic component to render elements in a grid view, but for now it's fine.
+        Long press function is enabled allowing the user to remove the selected image from the album.
     -->
-    <RadListView *ngIf="dataItems.length > 0" class="gallery" [items]="dataItems" separatorColor="transparent" pullToRefresh="false" loadOnDemandMode="None">
-        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" itemHeight="120" itemWidth="100" spanCount="3"></ListViewGridLayout>
+    <RadListView *ngIf="dataItems.length > 0" 
+        class="gallery" 
+        [items]="dataItems" 
+        separatorColor="transparent" 
+        pullToRefresh="false" 
+        loadOnDemandMode="None"
+        selectionBehavior="LongPress"
+        (itemSelected)="onItemSelected($event)"
+    >
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" spanCount="3"></ListViewGridLayout>
         <ng-template tkListItemTemplate let-item="item" let-index="index">
             <!-- basic tile with the rendered image from url + name -->
-            <GridLayout class="list-item" rows="*, auto" (tap)="onItemTap(item)">
+            <GridLayout class="list-item" rows="*, auto">
                 <Image [src]="item.source" row="0" stretch="aspectFill" class="item-image" loadMode="async"></Image>
                 <Label [text]="item.name" row="1" class="item-label"></Label>
             </GridLayout>
