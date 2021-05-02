@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { Observable, of } from "rxjs";
 
-import { Album } from "../model/album";
+import { Album, Picture } from "../model/album";
 
 /**
  * Default API to fetch albums.
@@ -43,11 +43,28 @@ export class AlbumService {
     addAlbum(album: Album): Observable<Album> {
         let addedAlbum: Album;
         if (album) {
-            addedAlbum = { ...album, id: this.candidateId };
-            this.albums.push(album);
+            addedAlbum = { ...album, id: this.candidateId, images: [] };
+            this.albums.push(addedAlbum);
             this.candidateId++;
         }
 
         return of(addedAlbum);
+    }
+
+    /**
+     * Add the passed image to the album with id albumId.
+     * @param image 
+     * @param albumId 
+     * @returns the updated album
+     */
+    addImagetoAlbum(image: Picture, albumId: number): Observable<Album> {
+        let album: Album;
+        const albumIndex = this.albums.findIndex((album => album.id === albumId));
+        if (albumIndex > -1) {
+            this.albums[albumIndex].images.push(image);
+            album = this.albums[albumIndex];
+        }
+
+        return of(album);
     }
 }

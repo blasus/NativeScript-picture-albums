@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogOptions, ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { ExtendedNavigationExtras } from "@nativescript/angular/router/router-extensions";
 import { EventData, Page, TextField } from "@nativescript/core";
+import { UntilDestroy } from "@ngneat/until-destroy";
 import { Subscription } from "rxjs";
 
 import { Album } from "../../model/album";
@@ -14,17 +15,19 @@ import { AddModalComponent } from "../add-modal/add-modal.component";
  * as well as a toolbar for action buttons.
  * A list of the available albums is the layout for the body.
  */
+// use of ngneat/until-destroy to automatically finalise the active subscriptions
+@UntilDestroy({ arrayName: 'subscriptions' })
 @Component({
     selector: "ns-home",
     templateUrl: "./home.component.html",
     styleUrls: ["./home.component.css"]
 })
-export class HomeComponent implements OnInit, OnDestroy {
+export class HomeComponent implements OnInit {
     /** the list of albums. This is fetched from the server.  */
     albums: Array<Album>;
     /** flag to toggle clear text for search bar.  */
     showClear: boolean;
-    /** keep track of the active subscriptions to be deleted */
+    /** keep track of the active subscriptions to be unsubscribed */
     private subscriptions: Subscription[] = [];
 
     constructor(
@@ -96,13 +99,5 @@ export class HomeComponent implements OnInit, OnDestroy {
         };
         // navigate to search page passing data
         this.router.navigate(['search'], opts);
-    }
-
-    ngOnDestroy(): void {
-        // remove all the subscriptions, basic method to prevent
-        // memory leaks.
-        this.subscriptions.forEach(sub => {
-            sub.unsubscribe();
-        });
     }
 }

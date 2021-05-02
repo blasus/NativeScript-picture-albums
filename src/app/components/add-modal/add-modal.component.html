@@ -1,13 +1,14 @@
 <StackLayout [formGroup]="form" class="modal">
+    <Label class="h2" text="Add a new album"></Label>
     <!-- form control for name -->
     <StackLayout class="form-control-container">
         <Label text="Name" class="label" textWrap="true"></Label>
-        <TextField formControlName="name" class="nt-input"></TextField>
+        <TextField formControlName="name" class="nt-input" returnKeyType="next"></TextField>
     </StackLayout>
     <!-- form control for description -->
     <StackLayout class="form-control-container">
         <Label text="Description" class="label" textWrap="true"></Label>
-        <TextField formControlName="description" class="nt-input"></TextField>
+        <TextField formControlName="description" class="nt-input" returnKeyType="done"></TextField>
     </StackLayout>
     <!-- button container -->
     <FlexboxLayout justifyContent="center" class="button-container">
