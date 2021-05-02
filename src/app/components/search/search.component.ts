@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { RouterExtensions } from "@nativescript/angular";
 import { action, ObservableArray } from "@nativescript/core";
 import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
