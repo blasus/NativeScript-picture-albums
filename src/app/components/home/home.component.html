@@ -21,8 +21,8 @@
                 <ng-template let-item="item">
                     <!-- each element displays the default image of the album, name and description -->
                     <GridLayout rows="auto, auto" columns="*, 5*" [nsRouterLink]="['/album', item.id]" class="list-group-item">
-                        <!-- <Image row="0" rowSpan="2" col="0" src="font://&#xf07b;" stretch="none" class="fas fa-folder"></Image> -->
-                        <Label row="0" rowSpan="2" text="F" class="h1"></Label>
+                        <Image row="0" rowSpan="2" col="0" src="~/app/assets/images/folder.png" stretch="aspectFit" class="folder-img"></Image>
+                        <!-- <Label row="0" rowSpan="2" text="F" class="h1"></Label> -->
                         <Label row="0" col="1" [text]="item.name" class="h2"></Label>
                         <Label row="1" col="1" [text]="item.description" class="h3"></Label>
                     </GridLayout>
