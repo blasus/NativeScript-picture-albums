@@ -1,0 +1,24 @@
+<ActionBar title="Search">
+    <!-- go back button -->
+    <NavigationButton text="Go Back" android.systemIcon="ic_menu_back" class="back-button" (tap)="goBack()"></NavigationButton>
+</ActionBar>
+
+<GridLayout class="body">
+    <!-- Use of RadListView from nativescript-ui-listview plugin to render virtualised elements in a grid view.
+        Again, this could be a generic component to render elements in a grid view, but for now it's fine.
+    -->
+    <RadListView class="gallery" [items]="dataItems" separatorColor="transparent" pullToRefresh="false" loadOnDemandMode="None">
+        <ListViewGridLayout tkListViewLayout scrollDirection="Vertical" itemHeight="120" itemWidth="100" spanCount="3"></ListViewGridLayout>
+        <ng-template tkListItemTemplate let-item="item" let-index="index">
+            <!-- basic tile with the rendered image from url + name -->
+            <GridLayout class="list-item" rows="*, auto">
+                <Image [src]="item.source" row="0" stretch="aspectFill" class="item-image" loadMode="async"></Image>
+                <Label [text]="item.name" row="1" class="item-label"></Label>
+            </GridLayout>
+        </ng-template>
+    </RadListView>
+    <!-- This could be a generic component showing loading spinner when content loading, but better
+        to prioritise the work for requirements firstly.
+    -->
+    <ActivityIndicator [busy]="isBusy" class="activity-indicator"></ActivityIndicator>
+</GridLayout>

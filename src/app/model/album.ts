@@ -1,11 +1,12 @@
 export interface Album {
-    id?: number; // temporarily optional as need to provide it from valid db
+    id: number;
     name: string;
     description: string;
-    images: Array<Image>;
+    images: Array<Picture>;
 }
 
-export interface Image {
+export interface Picture {
+    id: number;
     name: string;
     source: string;
 }

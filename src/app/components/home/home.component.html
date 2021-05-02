@@ -1,15 +1,17 @@
 <StackLayout>
     <!-- Header -->
     <GridLayout columns="*, auto, auto" rows="auto" class="header">
-        <!-- Search bar -->
+        <!-- Search bar. That would be nice to have an external component to render search bar, but
+            because of lack of time, better to priotise the requirements.
+        -->
         <GridLayout col="0" columns="*, auto" rows="auto" class="search-container">
-            <TextField #search col="0" hint="Search for images" returnKeyType="search" class="search-bar" (textChange)="onTextChange($event)"></TextField>
-            <Button col="1" text="X" class="action-button -circle" [visibility]="showClear ? 'visible' : 'collapsed'" (tap)="onClearSearch(search)"></Button>
+            <TextField #search col="0" hint="Search for images" returnKeyType="search" class="search-bar" (returnPress)="onSearchTap(search)" (textChange)="onTextChange($event)"></TextField>
+            <Button col="1" text="X" class="action-button clear -circle" [visibility]="showClear ? 'visible' : 'collapsed'" (tap)="onClearSearch(search)"></Button>
         </GridLayout>
         <!-- Search button -->
-        <Button col="1" text="S" class="action-button -circle"></Button>
+        <Button col="1" text="S" class="action-button -circle" (tap)="onSearchTap(search)"></Button>
         <!-- Add new album button -->
-        <Button col="2" text="A" class="action-button -circle" (tap)="onAddTap($event)"></Button>
+        <Button col="2" text="+" class="action-button -circle" (tap)="onAddTap($event)"></Button>
     </GridLayout>
     <!-- Body -->
     <StackLayout class="body">
@@ -22,7 +24,7 @@
                         <!-- <Image row="0" rowSpan="2" col="0" src="font://&#xf07b;" stretch="none" class="fas fa-folder"></Image> -->
                         <Label row="0" rowSpan="2" text="F" class="h1"></Label>
                         <Label row="0" col="1" [text]="item.name" class="h2"></Label>
-                        <Label row="1" col="1" [text]="item.description" class="h4"></Label>
+                        <Label row="1" col="1" [text]="item.description" class="h3"></Label>
                     </GridLayout>
                 </ng-template>
             </ListView>

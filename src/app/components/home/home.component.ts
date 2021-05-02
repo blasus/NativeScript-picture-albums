@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit, ViewContainerRef } from "@angular/core";
-import { ModalDialogOptions, ModalDialogService } from "@nativescript/angular";
-import { EventData, TextField } from "@nativescript/core";
+import { ModalDialogOptions, ModalDialogService, RouterExtensions } from "@nativescript/angular";
+import { ExtendedNavigationExtras } from "@nativescript/angular/router/router-extensions";
+import { EventData, Page, TextField } from "@nativescript/core";
 import { Subscription } from "rxjs";
 
 import { Album } from "../../model/album";
@@ -29,8 +30,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     constructor(
         private albumService: AlbumService,
         private modalService: ModalDialogService,
-        private vcRef: ViewContainerRef
-    ) { }
+        private vcRef: ViewContainerRef,
+        private router: RouterExtensions,
+        private page: Page
+    ) { 
+        this.page.actionBarHidden = true;
+    }
 
     ngOnInit(): void {
         this.subscriptions.push(this.albumService.getAlbums().subscribe(albums => {
@@ -76,6 +81,21 @@ export class HomeComponent implements OnInit, OnDestroy {
                     );
                 }
             });
+    }
+
+    /**
+     * Tap event handler on search button.
+     * @param e 
+     */
+    onSearchTap(search: TextField): void {
+        const opts: ExtendedNavigationExtras = {
+            state: {
+                term: search.text,
+                albums: this.albums
+            }
+        };
+        // navigate to search page passing data
+        this.router.navigate(['search'], opts);
     }
 
     ngOnDestroy(): void {
