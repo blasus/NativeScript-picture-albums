@@ -6,12 +6,24 @@
         -->
         <GridLayout col="0" columns="*, auto" rows="auto" class="search-container">
             <TextField #search col="0" hint="Search for images" returnKeyType="search" class="search-bar" (returnPress)="onSearchTap(search)" (textChange)="onTextChange($event)"></TextField>
-            <Button col="1" text="X" class="action-button clear -circle" [visibility]="showClear ? 'visible' : 'collapsed'" (tap)="onClearSearch(search)"></Button>
+            <Button col="1" class="action-button clear -circle" [visibility]="showClear ? 'visible' : 'collapsed'" (tap)="onClearSearch(search)">
+                <FormattedString>
+                    <Span text="&#xf55a;" class="fas fa-backspace" fontAttributes="Bold"></Span>
+                </FormattedString>
+            </Button>
         </GridLayout>
         <!-- Search button -->
-        <Button col="1" text="S" class="action-button -circle" (tap)="onSearchTap(search)"></Button>
+        <Button col="1" class="action-button -circle" (tap)="onSearchTap(search)">
+            <FormattedString>
+                <Span text="&#xf002;" class="fas fa-search" fontAttributes="Bold"></Span>
+            </FormattedString>
+        </Button>
         <!-- Add new album button -->
-        <Button col="2" text="+" class="action-button -circle" (tap)="onAddTap($event)"></Button>
+        <Button col="2" class="action-button -circle" (tap)="onAddTap($event)">
+            <FormattedString>
+                <Span text="&#xf65e;" class="fas fa-folder-plus" fontAttributes="Bold"></Span>
+            </FormattedString>
+        </Button>
     </GridLayout>
     <!-- Body -->
     <StackLayout class="body">
@@ -22,7 +34,6 @@
                     <!-- each element displays the default image of the album, name and description -->
                     <GridLayout rows="auto, auto" columns="*, 5*" [nsRouterLink]="['/album', item.id]" class="list-group-item">
                         <Image row="0" rowSpan="2" col="0" src="~/app/assets/images/folder.png" stretch="aspectFit" class="folder-img"></Image>
-                        <!-- <Label row="0" rowSpan="2" text="F" class="h1"></Label> -->
                         <Label row="0" col="1" [text]="item.name" class="h2"></Label>
                         <Label row="1" col="1" [text]="item.description" class="h3"></Label>
                     </GridLayout>
