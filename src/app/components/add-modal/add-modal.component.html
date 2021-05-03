@@ -4,6 +4,7 @@
     <StackLayout class="form-control-container">
         <Label text="Name" class="label" textWrap="true"></Label>
         <TextField formControlName="name" class="nt-input" returnKeyType="next"></TextField>
+        <Label *ngIf="(f.name.touched || submitted) && f.name.errors?.required" class="text-danger" text="Name is required"></Label>
     </StackLayout>
     <!-- form control for description -->
     <StackLayout class="form-control-container">
