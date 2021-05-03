@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "528736630018",
+    "firebase_url": "https://airbnco-image-gallery-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "airbnco-image-gallery",
+    "storage_bucket": "airbnco-image-gallery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:528736630018:android:78a5f6052ff03456babe1b",
+        "android_client_info": {
+          "package_name": "org.nativescript.airbncoproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "528736630018-6jcflstjvvvdv634e6cv20ilnj1ujhge.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQeQQzX-lUditiAXglcNvwD9B7uIyIX4g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "528736630018-6jcflstjvvvdv634e6cv20ilnj1ujhge.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "528736630018-s2nq38gnlgo1uigti75ggbbsh9i0tq2k.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "org.nativescript.airbncoproject"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
