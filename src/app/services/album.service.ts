@@ -1,7 +1,10 @@
 import { Injectable } from "@angular/core";
-import { Observable, of } from "rxjs";
+import { firebase } from "@nativescript/firebase";
+import { from, Observable } from "rxjs";
+import { map, switchMap } from "rxjs/operators";
 
-import { Album, Picture } from "../model/album";
+import { Album } from "../model/album";
+import { ImageService } from "./image.service";
 
 /**
  * Default API to fetch albums.
@@ -10,29 +13,45 @@ import { Album, Picture } from "../model/album";
     providedIn: "root"
 })
 export class AlbumService {
-    // temporary placeholder id for mock db storage
-    private candidateId: number = 3;
-    // temporary store for albums
-    private albums = new Array<Album>(
-        { id: 1, name: "Example1", description: "This is the first album", images: [] },
-        { id: 2, name: "Example2", description: "This is another album", images: [] },
-    );
+
+    private path = '/albums';
+
+    constructor(private imageService: ImageService) {}
 
     /**
      * Gets the available albums.
      * @returns the albums
      */
     getAlbums(): Observable<Album[]> {
-        return of(this.albums);
+        return from(firebase.getValue(this.path))
+            .pipe(
+                map(res => {
+                    const arr = Object.entries<any>(res.value);
+                    return arr.map(item => {
+                        return { id: item[0], ...item[1] };
+                    })
+                }),
+            );
     }
 
     /**
-     * Get the album with parameter id
-     * @param {number} id 
+     * Get the album with parameter id.
+     * @param {string} id 
      * @returns the album with specified id, if available.
      */
-    getAlbum(id: number): Observable<Album> {
-        return of(this.albums.filter((item) => item.id === id)[0]);
+    getAlbum(id: string): Observable<Album> {
+        let album: Album;
+        return from(firebase.getValue(this.path + `/${id}`))
+            .pipe(
+                switchMap(res => {
+                    album = res.value;
+                    return this.imageService.queryAlbumPictures(id);
+                }),
+                map(pictures => {
+                    album.images = pictures;
+                    return album;
+                })
+            );
     }
 
     /**
@@ -40,48 +59,7 @@ export class AlbumService {
      * @param album 
      * @returns the added album
      */
-    addAlbum(album: Album): Observable<Album> {
-        let addedAlbum: Album;
-        if (album) {
-            addedAlbum = { ...album, id: this.candidateId, images: [] };
-            this.albums.push(addedAlbum);
-            this.candidateId++;
-        }
-
-        return of(addedAlbum);
-    }
-
-    /**
-     * Add the passed image to the album with id albumId.
-     * @param image 
-     * @param albumId 
-     * @returns the updated album
-     */
-    addImagetoAlbum(image: Picture, albumId: number): Observable<Album> {
-        let album: Album;
-        const albumIndex = this.albums.findIndex((album => album.id === albumId));
-        if (albumIndex > -1) {
-            this.albums[albumIndex].images.push(image);
-            album = this.albums[albumIndex];
-        }
-
-        return of(album);
-    }
-
-    /**
-     * Delete the passed image from the album with id albumId.
-     * @param image 
-     * @param albumId
-     * @returns the updated album 
-     */
-    deleteImageFromAlbum(image: Picture, albumId: number): Observable<Album> {
-        const album = this.albums.filter((item) => item.id === albumId)[0];
-
-        if (album) {
-            // check if the image exists then remove it
-            album.images = album.images.filter(img => img.id !== image.id);
-        }
-
-        return of(album);
+    addAlbum(album: Album): Observable<firebase.PushResult> {
+        return from(firebase.push(this.path, album));
     }
 }

@@ -77,16 +77,16 @@ export class SearchComponent implements OnInit {
             title: "Add image to the album",
             message: "Choose the album",
             cancelButtonText: "Cancel",
-            actions: this.albums.map(album => `${album.id} - ${album.name}`)
+            actions: this.albums.map(album => `${album.id}, ${album.name}`)
         };
         
         action(options).then((res) => {
-            const id = +res.split('-')[0].trim();
+            const id = res.split(',')[0].trim();
             // call the request to add the image
-            this.albumService.addImagetoAlbum(item, id)
+            this.imageService.addImagetoAlbum(item, id)
                 .pipe(untilDestroyed(this))
-                .subscribe(album => {
-                    console.log(album);
+                .subscribe(res => {
+                    console.log(res);
                 });
         });
     }

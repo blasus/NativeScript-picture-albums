@@ -5,6 +5,7 @@ import { ObservableArray, confirm } from "@nativescript/core";
 import { UntilDestroy } from "@ngneat/until-destroy";
 import { ListViewEventData, RadListView } from "nativescript-ui-listview";
 import { finalize, take } from "rxjs/operators";
+import { ImageService } from "~/app/services/image.service";
 
 import { Album, Picture } from "../../model/album";
 import { AlbumService } from "../../services/album.service";
@@ -30,6 +31,7 @@ export class AlbumDetailComponent implements OnInit {
 
     constructor(
         private albumService: AlbumService,
+        private imageService: ImageService,
         private router: RouterExtensions,
         private route: ActivatedRoute
     ) {
@@ -37,7 +39,7 @@ export class AlbumDetailComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        const id = +this.route.snapshot.params.id;
+        const id = this.route.snapshot.params.id;
         this.albumService.getAlbum(id)
             .pipe(
                 take(1),
@@ -47,7 +49,9 @@ export class AlbumDetailComponent implements OnInit {
             )
             .subscribe(album => {
                 this.album = album;
-                this.dataItems.push(album.images);
+                if (album.images) {
+                    this.dataItems.push(album.images);
+                }
             });
     }
 
@@ -77,9 +81,9 @@ export class AlbumDetailComponent implements OnInit {
         confirm(options).then((res: boolean) => {
             if (res) {
                 // delete the image
-                this.albumService.deleteImageFromAlbum(image, this.album.id)
+                this.imageService.deleteImage(image)
                     .pipe(take(1))
-                    .subscribe(album => {
+                    .subscribe(() => {
                         // refresh the view
                         this.dataItems.splice(e.index, 1);
                     });

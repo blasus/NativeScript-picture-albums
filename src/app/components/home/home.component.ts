@@ -1,9 +1,9 @@
-import { Component, OnDestroy, OnInit, ViewContainerRef } from "@angular/core";
+import { Component, OnInit, ViewContainerRef } from "@angular/core";
 import { ModalDialogOptions, ModalDialogService, RouterExtensions } from "@nativescript/angular";
 import { ExtendedNavigationExtras } from "@nativescript/angular/router/router-extensions";
 import { EventData, Page, TextField } from "@nativescript/core";
-import { UntilDestroy } from "@ngneat/until-destroy";
-import { Subscription } from "rxjs";
+import { UntilDestroy, untilDestroyed } from "@ngneat/until-destroy";
+import { take } from "rxjs/operators";
 
 import { Album } from "../../model/album";
 import { AlbumService } from "../../services/album.service";
@@ -16,7 +16,7 @@ import { AddModalComponent } from "../add-modal/add-modal.component";
  * A list of the available albums is the layout for the body.
  */
 // use of ngneat/until-destroy to automatically finalise the active subscriptions
-@UntilDestroy({ arrayName: 'subscriptions' })
+@UntilDestroy()
 @Component({
     selector: "ns-home",
     templateUrl: "./home.component.html",
@@ -27,8 +27,6 @@ export class HomeComponent implements OnInit {
     albums: Array<Album>;
     /** flag to toggle clear text for search bar.  */
     showClear: boolean;
-    /** keep track of the active subscriptions to be unsubscribed */
-    private subscriptions: Subscription[] = [];
 
     constructor(
         private albumService: AlbumService,
@@ -41,9 +39,18 @@ export class HomeComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.subscriptions.push(this.albumService.getAlbums().subscribe(albums => {
-            this.albums = albums;
-        }));
+        this.refresh();
+    }
+
+    /**
+     * Method to refresh the view with new data.
+     */
+    private refresh(): void {
+        this.albumService.getAlbums()
+            .pipe(untilDestroyed(this))
+            .subscribe(albums => {
+                this.albums = albums;
+            });
     }
 
     /**
@@ -77,11 +84,12 @@ export class HomeComponent implements OnInit {
         this.modalService.showModal(AddModalComponent, options)
             .then((res: Album) => {
                 if (res) {
-                    this.subscriptions.push(
-                        this.albumService.addAlbum(res).subscribe(album => {
-                            // do stuff with added album
-                        })
-                    );
+                    this.albumService.addAlbum(res)
+                    .pipe(take(1))
+                    .subscribe(res => {
+                        // do stuff with added album
+                        this.refresh();
+                    });
                 }
             });
     }

@@ -1,12 +1,13 @@
 export interface Album {
-    id: number;
+    id: string;
     name: string;
     description: string;
     images: Array<Picture>;
 }
 
 export interface Picture {
-    id: number;
+    id: string;
     name: string;
     source: string;
+    albumId: string;
 }
